@@ -29,6 +29,8 @@ pipeline {
             steps {
                 script {
                     echo "Building the app"
+                    sh 'gradle build'
+
                 }
             }
         }
@@ -37,6 +39,10 @@ pipeline {
             steps {
                 script {
                     echo "Building image and pushing to repo"
+                    buildDockerImage(env.IMAGE_NAME)
+                    dockerLogin('docker-hub-repo')
+                    dockerPush(env.IMAGE_NAME)
+
                 }
             }
         }
