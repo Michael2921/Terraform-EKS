@@ -11,6 +11,7 @@ module "eks" {
     vpc-cni = {
         before_compute = true
     }
+    aws-ebs-csi-driver = {}
 
   }
 
@@ -37,6 +38,20 @@ module "eks" {
     tags = {
         environment = "testing"
         application "company-app"
+    }
+
+  }
+
+  fargate_profiles = {
+    company-fargate = {
+        selectors = [
+            {
+            namespace = "fargate"
+        }
+        ]
+
+       // subnet_ids = module.company-vpc.private_subnets // test and see what subnets will be used 
+
     }
 
   }
