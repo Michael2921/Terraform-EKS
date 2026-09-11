@@ -28,7 +28,7 @@ pipeline {
         stage('Build App') {
             steps {
                 script {
-
+                    echo "Building the app"
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
         stage('Build Image and push to Repo') {
             steps {
                 script {
-
+                    echo "Building image and pushing to repo"
                 }
             }
         }
@@ -45,7 +45,7 @@ pipeline {
         stage('Provision EKS cluster') {
             steps {
                 script {
-
+                    echo "Provisioning EKS cluster"
                 }
             }
         }
@@ -54,7 +54,7 @@ pipeline {
         stage('Deploy MYSQL') {
             steps {
                 script {
-
+                        echo "Deploying MYSQL"
                 }
             }
         }
@@ -63,7 +63,7 @@ pipeline {
         stage('Deploy PHPMyAdmin') {
             steps {
                 script {
-
+                    echo "Deploying PHPMyAdmin"
                 }
             }
         }
@@ -72,7 +72,7 @@ pipeline {
         stage('Deploy company application') {
             steps {
                 script {
-
+                    echo "Deploying company application"
                 }
             }
         }
