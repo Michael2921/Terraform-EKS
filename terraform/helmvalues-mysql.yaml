@@ -1,0 +1,24 @@
+architecture: replication
+replicaCount: 2
+auth:
+  database: mydb
+  username: myuser
+  existingSecret: mysql-creds
+
+
+secondary:
+  replicaCount: 2
+  persistence:
+    accessModes: ["ReadWriteOnce"]
+    enabled: true
+    storageClass: gp3
+    size: 10Gi
+
+
+global:
+  security:
+    allowInsecureImages: True
+image: 
+  registry: docker.io
+  tag: latest
+  repository: bitnamilegacy/mysql
