@@ -13,9 +13,9 @@ module "company-vpc" {
     version = "6.7.2"
 
     name = "company-vpc"
-    cidr = var.vpc_cidr_block 
-    private_subnets = var.private_subnet_cidr_blocks 
-    public_subnets = var.public_subnet_cidr_blocks 
+    cidr = "10.0.0.0/16" 
+    private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]  
+    public_subnets = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"] 
     azs = data.aws_availability_zones.azs.names
 
     enable_nat_gateway = true

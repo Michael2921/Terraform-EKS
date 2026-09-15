@@ -48,22 +48,40 @@ pipeline {
         }
 
 
-        stage('Provision EKS cluster') {
+        stage('Provision EKS cluster and MYSQL') { // define credentialsId in jenkins using secret text type
             steps {
-                script {
+                withCredentials ([
+                    string(
+                        credentialsId: 'mysql-root-password'
+                        variable: 'TF_VAR_mysql_root_password'
+                    ), 
+
+                    string(
+
+                        credentialsId : 'mysql-replication-password'
+                        variable: 'TF_VAR_mysql_replication_password'
+                    ),
+
+                    
+                    string(
+                        credentialsId: 'mysql-user-password'
+                        variable: 'TF_VAR_mysql_user_password'
+                    )
+
+
+                ]) {
+               
                     echo "Provisioning EKS cluster"
+                    sh 'terraform init'
+                    sh 'terraform plan'
+
                 }
+                
             }
         }
 
 
-        stage('Deploy MYSQL') {
-            steps {
-                script {
-                        echo "Deploying MYSQL"
-                }
-            }
-        }
+    
 
 
         stage('Deploy PHPMyAdmin') {
