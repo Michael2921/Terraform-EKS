@@ -19,7 +19,7 @@ module "eks" {
   kubernetes_version = 1.36
 
   subnet_ids = module.company-vpc.private_subnets
-  vpc_id = module.myapp-vpc.vpc_id
+  vpc_id = module.company-vpc.vpc_id
 
   endpoint_public_access = true // to run kubectl locally
   enable_cluster_creator_admin_permissions = true // cluster creator is admin
