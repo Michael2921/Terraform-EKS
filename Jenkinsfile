@@ -79,7 +79,7 @@ pipeline {
                 ]) {
                
                     echo "Provisioning EKS cluster"
-                    sh 'terraform init'
+                   // sh 'terraform init'
                     sh 'terraform providers'
                     //sh 'terraform plan'
                     sh "aws eks update-kubeconfig --name ${TF_VAR_cluster_name} --region ${TF_VAR_region}"
