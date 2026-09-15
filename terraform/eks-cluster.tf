@@ -37,7 +37,7 @@ module "eks" {
 
     tags = {
         environment = "testing"
-        application "company-app"
+        application = "company-app"
     }
 
   }
