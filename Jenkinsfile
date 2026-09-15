@@ -57,19 +57,19 @@ pipeline {
             steps {
                 withCredentials ([
                     string(
-                        credentialsId: 'mysql-root-password'
+                        credentialsId: 'mysql-root-password',
                         variable: 'TF_VAR_mysql_root_password'
                     ), 
 
                     string(
 
-                        credentialsId : 'mysql-replication-password'
+                        credentialsId : 'mysql-replication-password',
                         variable: 'TF_VAR_mysql_replication_password'
                     ),
 
                     
                     string(
-                        credentialsId: 'mysql-user-password'
+                        credentialsId: 'mysql-user-password',
                         variable: 'TF_VAR_mysql_user_password'
                     )
 
@@ -87,7 +87,6 @@ pipeline {
         }
 
 
-    
 
 
         stage('Deploy PHPMyAdmin') {
