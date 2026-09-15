@@ -69,7 +69,7 @@ pipeline {
 
                     
                     string(
-                        credentialsId: 'mysql-user-password',
+                        credentialsId: 'mysql-password',
                         variable: 'TF_VAR_mysql_user_password'
                     )
 
