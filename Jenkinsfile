@@ -55,6 +55,8 @@ pipeline {
             TF_VAR_region = "us-east-1"
         }
             steps {
+
+                dir('terraform') {
                 withCredentials ([
                     string(
                         credentialsId: 'mysql-root-password',
@@ -80,6 +82,8 @@ pipeline {
                     sh 'terraform init'
                     sh 'terraform plan'
                     sh "aws eks update-kubeconfig --name ${TF_VAR_cluster_name} --region ${TF_VAR_region}"
+
+                }
 
                 }
                 
