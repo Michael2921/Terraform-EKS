@@ -6,7 +6,7 @@ variable vpc_cidr_block {}
 variable  private_subnet_cidr_blocks {}
 variable public_subnet_cidr_blocks {}
 
-data "aws-availability_zones" "azs" {}
+data "aws_availability_zones" "azs" {}
 
 module "company-vpc" {
     source = "terraform-aws-modules/vpc/aws"
