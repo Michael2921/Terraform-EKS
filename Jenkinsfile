@@ -49,6 +49,11 @@ pipeline {
 
 
         stage('Provision EKS cluster and MYSQL') { // define credentialsId in jenkins using secret text type
+        // update kubeconfig to run kubectl, but first set needed env variables
+        environment {
+            TF_VAR_cluster_name = "company-cluster"
+            TF_VAR_region = "us-east-1"
+        }
             steps {
                 withCredentials ([
                     string(
@@ -74,6 +79,7 @@ pipeline {
                     echo "Provisioning EKS cluster"
                     sh 'terraform init'
                     sh 'terraform plan'
+                    sh "aws eks update-kubeconfig --name ${TF_VAR_cluster_name} --region ${TF_VAR_region}"
 
                 }
                 
