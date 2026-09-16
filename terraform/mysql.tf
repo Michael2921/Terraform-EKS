@@ -17,7 +17,7 @@ provider "kubernetes" {
 # create a storage class using the kubernetes provider
 
 resource "kubernetes_storage_class_v1" "gp3" {
-    depends_on [module.eks]
+    depends_on = [module.eks]
     metadata {
         name = "gp3"
     }
