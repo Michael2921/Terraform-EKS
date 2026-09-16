@@ -15,19 +15,6 @@ provider "kubernetes" {
 }
 
 
-# data "aws_caller_identity" "terraform" {}
-
-# output "terraform_aws_identity" {
-#   value = data.aws_caller_identity.terraform.arn
-# }
-
-# output "eks_auth_token" {
-#   value     = data.aws_eks_cluster_auth.cluster.token
-#   sensitive = true
-# }
-
-
-# create a storage class using the kubernetes provider
 
 resource "kubernetes_storage_class_v1" "gp3" {
     depends_on = [module.eks]
@@ -46,6 +33,23 @@ resource "kubernetes_storage_class_v1" "gp3" {
         fsType = "ext4"
     }
 }
+
+
+resource "kubernetes_secret_v1" "mysql_creds" {
+    metadata {
+        name = "mysql-creds"
+    }
+
+    data = {
+        mysql-root-password = var.mysql_root_password
+        mysql-password = var.mysql_user_password
+        mysql-replication-password = var.mysql_replication_password
+    }
+
+    type = "Opaque"
+}
+
+
 
 
 
@@ -71,19 +75,19 @@ variable "mysql_user_password" {
 }
 
 
-user_data = <<EOF
+# user_data = <<EOF
     
-    #!/bin/bash
-    kubectl create secret generic mysql-creds --from-literal=mysql-root-password=${var.mysql_root_password} --from-literal=mysql-password=${var.mysql_user_password} --from-literal=mysql-replication-password=${var.mysql_replication_password}
+#     #!/bin/bash
+#     kubectl create secret generic mysql-creds --from-literal=mysql-root-password=${var.mysql_root_password} --from-literal=mysql-password=${var.mysql_user_password} --from-literal=mysql-replication-password=${var.mysql_replication_password}
 
-    EOF
+#     EOF
 
 resource "helm_release" "mysql" {
     name = "mysql-release"
-    repository = "https://charts/bitnami.com/bitnami"
+    repository = "https://charts.bitnami.com/bitnami"
     chart = "mysql"
     version = "14.0.3" //watch this version
-    timeout = "120"
+    timeout = 120
 
     // add values file here
 
@@ -94,6 +98,11 @@ resource "helm_release" "mysql" {
         name = "volumePermissions.enabled"
         value = true
     }
+
+    depends_on = [
+        kubernetes_storage_class_v1.gp3
+        kubernetes_secret_v1.mysql_creds
+    ]
 
 
 }

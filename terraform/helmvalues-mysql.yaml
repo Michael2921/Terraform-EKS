@@ -1,5 +1,4 @@
 architecture: replication
-replicaCount: 2
 auth:
   database: mydb
   username: myuser
