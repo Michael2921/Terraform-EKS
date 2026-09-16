@@ -14,10 +14,14 @@ provider "kubernetes" {
 
 }
 
+output "eks_auth_token" {
+  value     = data.aws_eks_cluster_auth.cluster.token
+  sensitive = true
+}
+
 # create a storage class using the kubernetes provider
 
 resource "kubernetes_storage_class_v1" "gp3" {
-    depends_on = [module.eks]
     metadata {
         name = "gp3"
     }
