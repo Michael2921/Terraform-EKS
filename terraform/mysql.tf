@@ -100,7 +100,7 @@ resource "helm_release" "mysql" {
     }
 
     depends_on = [
-        kubernetes_storage_class_v1.gp3
+        kubernetes_storage_class_v1.gp3,
         kubernetes_secret_v1.mysql_creds
     ]
 
