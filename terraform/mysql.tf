@@ -14,10 +14,13 @@ provider "kubernetes" {
 
 }
 
-output "eks_auth_token" {
-  value     = data.aws_eks_cluster_auth.cluster.token
-  sensitive = true
+
+data "aws_caller_identity" "terraform" {}
+
+output "terraform_aws_identity" {
+  value = data.aws_caller_identity.terraform.arn
 }
+
 
 # create a storage class using the kubernetes provider
 
