@@ -6,6 +6,7 @@ data "aws_eks_cluster_auth" "cluster" { //retrieves auth token
 
 
 
+
 provider "kubernetes" {
     host = module.eks.cluster_endpoint
     token = data.aws_eks_cluster_auth.cluster.token
