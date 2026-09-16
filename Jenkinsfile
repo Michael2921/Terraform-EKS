@@ -84,6 +84,7 @@ pipeline {
                     echo "Provisioning EKS cluster"
                    sh 'terraform init'
                    sh 'terraform plan'
+                   sh 'terraform destroy --auto-approve'
                    sh 'terraform apply --auto-approve'
                    // sh 'terraform destroy'
                   // sh "aws eks update-kubeconfig --name ${TF_VAR_cluster_name} --region ${TF_VAR_region}"
