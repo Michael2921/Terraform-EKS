@@ -15,21 +15,9 @@ module "eks" {
 
   }
 
-  module "aws_ebs_csi_pod_identity" {
-    source = "terraform-aws-modules/eks-pod-identity/aws"
 
-    name = "aws-ebs-csi"
-
-    attach_aws_ebs_csi_policy = true
-
-    associations = {
-      this = {
-        cluster_name = module.eks.cluster_name
-        namespace = "kube-system"
-        service_account = "ebs-csi-controller-sa"
-      }
-    }
-  }
+  // use terraform kubernetes provider to deploy java manifest fils
+  // use terraform helm provider to deploy phpmyadmin
 
   name = "company-cluster"
   kubernetes_version = 1.36
@@ -74,12 +62,21 @@ module "eks" {
 
 
 
-
-
-
-
-
-
-
-
 }
+
+
+  module "aws_ebs_csi_pod_identity" {
+    source = "terraform-aws-modules/eks-pod-identity/aws"
+
+    name = "aws-ebs-csi"
+
+    attach_aws_ebs_csi_policy = true
+
+    associations = {
+      this = {
+        cluster_name = module.eks.cluster_name
+        namespace = "kube-system"
+        service_account = "ebs-csi-controller-sa"
+      }
+    }
+  }
