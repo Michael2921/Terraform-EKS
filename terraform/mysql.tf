@@ -35,6 +35,19 @@ resource "kubernetes_storage_class_v1" "gp3" {
 }
 
 
+variable "mysql_root_password" {
+  type      = string
+}
+
+variable "mysql_replication_password" {
+  type      = string
+}
+
+variable "mysql_user_password" {
+  type      = string
+}
+
+
 resource "kubernetes_secret_v1" "mysql_creds" {
     metadata {
         name = "mysql-creds"
@@ -62,17 +75,6 @@ provider "helm" {
 
 }
 
-variable "mysql_root_password" {
-  type      = string
-}
-
-variable "mysql_replication_password" {
-  type      = string
-}
-
-variable "mysql_user_password" {
-  type      = string
-}
 
 
 # user_data = <<EOF
