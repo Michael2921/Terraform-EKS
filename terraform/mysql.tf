@@ -73,7 +73,8 @@ resource "helm_release" "mysql" {
 
     // add values file here
 
-
+    values = ["${file("helmvalues-mysql.yaml")}"]
+    
 
     set {
         name = "volumePermissions.enabled"
