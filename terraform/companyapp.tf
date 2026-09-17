@@ -10,7 +10,7 @@ resource "kubernetes_secret_v1" "docker-creds" {
     data = {
         ".dockerconfigjson" = jsonencode({
             auths = {
-                "https://index.docker.io/v1/" {
+                "https://index.docker.io/v1/" = {
                     username= var.docker_username
                     password = var.docker_PAT
                     auth = base64encode("${var.docker_username}:${var.docker_PAT}")
@@ -24,14 +24,14 @@ resource "kubernetes_secret_v1" "docker-creds" {
 }
 
 
-resource "kubernetes_manifest" "java_app" {
+resource "kubernetes_manifest" "companyapp-configmap" {
   manifest = yamldecode(
     file("companyapp-configmap.yaml")
   )
 }
 
 
-resource "kubernetes_manifest" "java_app" {
+resource "kubernetes_manifest" "companyapp-deployment" {
   manifest = yamldecode(
     file("companyapp-deployment.yaml")
   )
