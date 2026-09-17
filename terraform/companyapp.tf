@@ -11,7 +11,7 @@ resource "kubernetes_secret_v1" "docker-creds" {
     depends_on = [module.eks]
     metadata {
         name = "docker-creds"
-        namespace = "kubernetes_namespace.fargate_namespace.metadata[0].name"
+        namespace = "fargate"
     }
 
     type = "kubernetes.io/dockerconfigjson"
