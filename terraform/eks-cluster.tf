@@ -27,11 +27,11 @@ module "eks" {
   eks_managed_node_groups = {
     company-nodegroup = { # name of the node group
     ami_type = "AL2023_x86_64_STANDARD"
-    instance_types = ["t2.small"]
+    instance_types = ["t3.small"]
 
-    min_size = 1
-    max_size = 4
-    desired_size = 4
+    min_size = 3
+    max_size = 3
+    desired_size = 3
 
     }
 
