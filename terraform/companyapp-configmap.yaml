@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: companyapp-configmap
+data:
+  PMA_HOST: mysql-primary # add namespace, companyapp will be in a different fargate namespace
+  PMA_PORT: "3306"
+  DB_USER: myuser
+  DB_NAME: mydb
+  DB_SERVER: mysql-primary

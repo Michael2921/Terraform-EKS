@@ -39,12 +39,14 @@ module "eks" {
 
     }
 
-    tags = {
+    
+
+  }
+
+  tags = {
         environment = "testing"
         application = "company-app"
     }
-
-  }
 
   fargate_profiles = {
     company-fargate = {
@@ -54,7 +56,6 @@ module "eks" {
         }
         ]
 
-       // subnet_ids = module.company-vpc.private_subnets // test and see what subnets will be used 
 
     }
 
