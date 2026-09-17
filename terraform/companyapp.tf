@@ -1,3 +1,12 @@
+variable "docker_username" {
+  type = string
+}
+
+variable "docker_PAT" {
+  type = string
+}
+
+
 resource "kubernetes_secret_v1" "docker-creds" {
     depends_on = [module.eks]
     metadata {
@@ -11,7 +20,7 @@ resource "kubernetes_secret_v1" "docker-creds" {
         ".dockerconfigjson" = jsonencode({
             auths = {
                 "https://index.docker.io/v1/" = {
-                    username= var.docker_username
+                    username = var.docker_username
                     password = var.docker_PAT
                     auth = base64encode("${var.docker_username}:${var.docker_PAT}")
                 }

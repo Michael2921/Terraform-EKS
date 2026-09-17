@@ -80,7 +80,7 @@ module "eks" {
   }
 
 
-  resource "kubernetes_namespace" "fargate_namespace" {
+  resource "kubernetes_namespace_v1" "fargate_namespace" {
     metadata {
       name = "fargate"
     }
