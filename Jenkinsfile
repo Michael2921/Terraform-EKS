@@ -79,8 +79,8 @@ pipeline {
                     ),
 
                     usernamePassword(
-                        credentialsId: 'docker-hub-repo'
-                        usernameVariable: 'TF_VAR_docker_username'
+                        credentialsId: 'docker-hub-repo',
+                        usernameVariable: 'TF_VAR_docker_username',
                         passwordVariable: 'TF_VAR_docker_PAT'
                     )
 
