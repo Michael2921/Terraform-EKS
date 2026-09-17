@@ -15,10 +15,6 @@ module "eks" {
 
   }
 
-
-  // use terraform kubernetes provider to deploy java manifest fils
-  // use terraform helm provider to deploy phpmyadmin
-
   name = "company-cluster"
   kubernetes_version = 1.36
 
@@ -34,8 +30,8 @@ module "eks" {
     instance_types = ["t2.small"]
 
     min_size = 1
-    max_size = 3
-    desired_size = 3
+    max_size = 4
+    desired_size = 4
 
     }
 
