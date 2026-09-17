@@ -50,7 +50,7 @@ variable "mysql_user_password" {
 
 resource "kubernetes_secret_v1" "mysql_creds" {
     depends_on = [module.eks, kubernetes_namespace_v1.fargate_namespace]
-    for_each =  toset(["terraform", "production"])
+    for_each =  toset(["default", "fargate"])
     metadata {
         name = "mysql-creds"
         namespace = each.value
