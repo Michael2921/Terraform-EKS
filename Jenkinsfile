@@ -76,6 +76,12 @@ pipeline {
                     string(
                         credentialsId: 'mysql-password',
                         variable: 'TF_VAR_mysql_user_password'
+                    ),
+
+                    usernamePassword(
+                        credentialsId: 'docker-hub-repo'
+                        usernameVariable: 'TF_VAR_docker_username'
+                        passwordVariable: 'TF_VAR_docker_PAT'
                     )
 
 

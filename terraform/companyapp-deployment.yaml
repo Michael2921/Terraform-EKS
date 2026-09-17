@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: company-app
+  namespace: fargate
   labels:
     app: company-app
 spec: 
@@ -9,18 +10,16 @@ spec:
   selector:
     matchLabels:
       app: company-app
-      profile: fargate
   template:
     metadata:
       labels:
         app: company-app
-        profile: fargate
     spec:
       imagePullSecrets:
-      - name: ecr-secret
+      - name: docker-creds
       containers:
       - name: company-app
-        image: 420392929933.dkr.ecr.us-east-1.amazonaws.com/company-app:1.0
+        image: michael101/java-maven-app:company-app-1.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -54,6 +53,7 @@ kind: Service
 metadata:
   name: companyapp-service
 spec:
+  type: LoadBalancer
   selector:
     app: company-app
   ports:
