@@ -35,7 +35,7 @@ resource "kubernetes_secret_v1" "docker-creds" {
 
 resource "kubernetes_manifest" "companyapp_configmap" {
   manifest = yamldecode(
-    file("companyapp-configmap.yaml")
+    file("${path.module}/companyapp-configmap.yaml")
   )
 }
 
