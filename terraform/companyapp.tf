@@ -33,11 +33,11 @@ resource "kubernetes_secret_v1" "docker-creds" {
 }
 
 
-resource "kubernetes_manifest" "companyapp_configmap" {
-  manifest = yamldecode(
-    file("${path.module}/companyapp-configmap.yaml")
-  )
-}
+#resource "kubernetes_manifest" "companyapp_configmap" {
+#   manifest = yamldecode(
+#     file("companyapp-configmap.yaml")
+#   )
+# }
 
 
 resource "kubernetes_manifest" "companyapp_deployment" {
@@ -48,6 +48,6 @@ resource "kubernetes_manifest" "companyapp_deployment" {
 
 resource "kubernetes_manifest" "companyapp_service" {
   manifest = yamldecode(
-    file("companyapp-service.yaml")
+    file("companyapp-servi.yaml")
   )
 }
