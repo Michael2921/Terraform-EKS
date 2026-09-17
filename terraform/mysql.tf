@@ -77,6 +77,9 @@ provider "helm" {
 }
 
 
+}
+
+
 resource "helm_release" "mysql" {
     name = "mysql-release"
     repository = "https://charts.bitnami.com/bitnami"
@@ -99,7 +102,5 @@ resource "helm_release" "mysql" {
         kubernetes_secret_v1.mysql_creds
     ]
 
-
-}
 
 }
