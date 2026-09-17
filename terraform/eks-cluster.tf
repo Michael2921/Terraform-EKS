@@ -43,13 +43,7 @@ module "eks" {
         environment = "testing"
         application = "company-app"
     }
-    
 
-  resource "kubernetes_namespace" "fargate_namespace" {
-    metadata {
-      name = "fargate"
-    }
-  }
 
   fargate_profiles = {
     company-fargate = {
@@ -82,5 +76,12 @@ module "eks" {
         namespace = "kube-system"
         service_account = "ebs-csi-controller-sa"
       }
+    }
+  }
+
+
+  resource "kubernetes_namespace" "fargate_namespace" {
+    metadata {
+      name = "fargate"
     }
   }
