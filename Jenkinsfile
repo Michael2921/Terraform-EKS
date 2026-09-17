@@ -83,9 +83,9 @@ pipeline {
                
                     echo "Provisioning EKS cluster"
                  //  sh 'terraform init'
-                  sh 'terraform apply -refresh-only'
-                   sh 'terraform plan'
-                  // sh 'terraform destroy --auto-approve'
+                 // sh 'terraform apply -refresh-only'
+                 //  sh 'terraform plan'
+                   sh 'terraform destroy --auto-approve'
                 //  sh 'terraform state list'
 
                 //  sh 'terraform apply --auto-approve'
