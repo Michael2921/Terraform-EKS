@@ -4,6 +4,13 @@ auth:
   username: myuser
   existingSecret: mysql-creds
 
+primary:
+  persistence:
+    enabled: true
+    storageClass: gp3
+    accessModes: ["ReadWriteOnce"]
+    size: 10Gi
+
 
 secondary:
   replicaCount: 2
