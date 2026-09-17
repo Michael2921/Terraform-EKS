@@ -34,6 +34,7 @@ resource "kubernetes_secret_v1" "docker-creds" {
 
 
 resource "kubernetes_manifest" "companyapp_configmap" {
+  depends_on = [module.eks]
   manifest = yamldecode(
     file("companyapp-configmap.yaml")
   )
@@ -41,12 +42,14 @@ resource "kubernetes_manifest" "companyapp_configmap" {
 
 
 resource "kubernetes_manifest" "companyapp_deployment" {
+  depends_on = [module.eks]
   manifest = yamldecode(
     file("companyapp-deployment.yaml")
   )
 }
 
 resource "kubernetes_manifest" "companyapp_service" {
+  depends_on = [module.eks]
   manifest = yamldecode(
     file("companyapp-service.yaml")
   )
