@@ -42,14 +42,14 @@ resource "kubernetes_manifest" "companyapp_configmap" {
 
 
 resource "kubernetes_manifest" "companyapp_deployment" {
-  depends_on = [module.eks]
+  depends_on = [module.eks, kubernetes_manifest.companyapp_configmap]
   manifest = yamldecode(
     file("companyapp-deployment.yaml")
   )
 }
 
 resource "kubernetes_manifest" "companyapp_service" {
-  depends_on = [module.eks]
+  depends_on = [module.eks, kubernetes_manifest.companyapp_configmap]
   manifest = yamldecode(
     file("companyapp-service.yaml")
   )
