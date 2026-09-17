@@ -85,7 +85,7 @@ pipeline {
                  //  sh 'terraform init'
                  //  sh 'terraform plan'
                   // sh 'terraform destroy --auto-approve'
-                  sh 'terraform state list'
+                 // sh 'terraform state list'
                   sh 'terraform apply --auto-approve'
                   // sh "aws eks update-kubeconfig --name ${TF_VAR_cluster_name} --region ${TF_VAR_region}"
                    // create and update kubeconfig manually in jenkins, using the names of outputs after eks cluster is created
