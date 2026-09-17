@@ -25,27 +25,29 @@ pipeline {
     stages {
 
 
-        // stage('Build App') {
-        //     steps {
-        //         script {
-        //             echo "Building the app"
-        //             sh 'gradle build'
+        stage('Build App') {
+            steps {
+                dir('java-app') {
+                script {
+                    echo "Building the app"
+                    sh 'gradle build'
 
-        //         }
-        //     }
-        // }
+                }
+                }
+            }
+        }
         
-        // stage('Build Image and push to Repo') {
-        //     steps {
-        //         script {
-        //             echo "Building image and pushing to repo"
-        //             buildDockerImage(env.IMAGE_NAME)
-        //             dockerLogin('docker-hub-repo')
-        //             dockerPush(env.IMAGE_NAME)
+        stage('Build Image and push to Repo') {
+            steps {
+                script {
+                    echo "Building image and pushing to repo"
+                    buildDockerImage(env.IMAGE_NAME)
+                    dockerLogin('docker-hub-repo')
+                    dockerPush(env.IMAGE_NAME)
 
-        //         }
-        //     }
-        // }
+                }
+            }
+        }
 
 
         stage('Provision EKS cluster and MYSQL') { // define credentialsId in jenkins using secret text type
