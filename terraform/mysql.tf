@@ -49,6 +49,7 @@ variable "mysql_user_password" {
 
 
 resource "kubernetes_secret_v1" "mysql_creds" {
+    depends_on = [module.eks]
     metadata {
         name = "mysql-creds"
     }
