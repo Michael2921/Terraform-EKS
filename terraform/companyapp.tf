@@ -45,3 +45,9 @@ resource "kubernetes_manifest" "companyapp-deployment" {
     file("companyapp-deployment.yaml")
   )
 }
+
+resource "kubernetes_manifest" "companyapp-service" {
+  manifest = yamldecode(
+    file("companyapp-deployment.yaml")
+  )
+}
