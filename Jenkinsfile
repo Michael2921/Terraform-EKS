@@ -94,7 +94,7 @@ pipeline {
                   // sh 'terraform destroy --auto-approve'
                 //  sh 'terraform state list'
                 sh '''
-  echo 'yamldecode(file("companyapp-configmap.yaml")).metadata.namespace' | terraform console
+  cat companyapp-configmap.yaml
                 '''
 
                   sh 'terraform apply --auto-approve'
