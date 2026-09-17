@@ -1,0 +1,19 @@
+db:
+  host: "mysql-release-primary"
+  port: 3306
+
+
+service:
+  type: ClusterIP
+  ports:
+    http: 80
+
+
+global:
+  security:
+    allowInsecureImages: True
+
+image: 
+  registry: docker.io
+  tag: latest
+  repository: bitnamilegacy/phpmyadmin
