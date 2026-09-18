@@ -4,8 +4,8 @@ metadata:
   name: companyapp-configmap
   namespace: fargate
 data:
-  PMA_HOST: mysql-primary 
+  PMA_HOST: mysql-release-primary.default.svc.cluster.local
   PMA_PORT: "3306"
   DB_USER: myuser
   DB_NAME: mydb
-  DB_SERVER: mysql-primary
+  DB_SERVER: mysql-release-primary.default.svc.cluster.local
