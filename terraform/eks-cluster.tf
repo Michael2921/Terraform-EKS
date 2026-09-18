@@ -85,3 +85,37 @@ module "eks" {
       name = "fargate"
     }
   }
+
+  resource "aws_vpc_security_group_ingress_rule" "fargate_to_mysql" { # allows fargate pods to access MySQL
+  security_group_id            = module.eks.node_security_group_id # node security group
+  referenced_security_group_id = module.eks.cluster_primary_security_group_id # cluster security group
+
+  ip_protocol = "tcp"
+  from_port   = 3306
+  to_port     = 3306
+
+   
+}
+
+
+resource "aws_vpc_security_group_ingress_rule" "fargate_to_node_dns_tcp" { #  allows fargate pods to access DNS over TCP
+  security_group_id            = module.eks.node_security_group_id
+  referenced_security_group_id = module.eks.cluster_primary_security_group_id
+
+  ip_protocol = "tcp"
+  from_port   = 53
+  to_port     = 53
+
+ 
+}
+
+resource "aws_vpc_security_group_ingress_rule" "fargate_to_node_dns_udp" { #  allows fargate pods to access DNS over UDP
+  security_group_id            = module.eks.node_security_group_id
+  referenced_security_group_id = module.eks.cluster_primary_security_group_id
+
+  ip_protocol = "udp"
+  from_port   = 53
+  to_port     = 53
+
+  
+}
