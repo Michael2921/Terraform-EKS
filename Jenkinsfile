@@ -112,8 +112,8 @@ pipeline {
                
                     echo "Provisioning Kubernetes resources"
                     sh 'terraform init'
-                    sh 'terraform plan'
-                  //  sh 'terraform apply --auto-approve'
+                    //sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
 
                 }
             
