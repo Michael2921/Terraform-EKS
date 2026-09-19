@@ -1,3 +1,13 @@
+terraform {
+  required_version = ">= 0.12"
+  backend "s3" {
+    bucket = "terraform-eks20"
+    key = "terraform/kubernetes.tfstate"
+    region = "us-east-1"
+  }
+}
+
+
 resource "kubernetes_namespace_v1" "fargate_namespace" { 
 metadata {
     name = "fargate"

@@ -53,8 +53,7 @@ pipeline {
         stage('Provision Infrastructure (Networking + EKS)') { 
 
         environment {
-          //  TF_VAR_cluster_name = "company-cluster"
-          //  TF_VAR_region = "us-east-1"
+
             AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
             AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
 
@@ -63,10 +62,10 @@ pipeline {
 
                 dir('terraform/infrastructure') {
                
-                    echo "Provisioning Infrastructie"
+                    echo "Provisioning Infrastructure"
                     sh 'terraform init'
                  //   sh 'terraform plan'
-                    sh 'terraform apply --auto-approve'
+                 //   sh 'terraform apply --auto-approve'
             
 
                 
@@ -81,8 +80,6 @@ pipeline {
 
         stage('Provision Kubernetes Resources') {
             environment {
-          //  TF_VAR_cluster_name = "company-cluster"
-          //  TF_VAR_region = "us-east-1"
             AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
             AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
 
@@ -112,8 +109,8 @@ pipeline {
                
                     echo "Provisioning Kubernetes resources"
                     sh 'terraform init'
-                    //sh 'terraform plan'
-                    sh 'terraform apply --auto-approve'
+                    sh 'terraform plan'
+                  //  sh 'terraform apply --auto-approve'
 
                 }
             
