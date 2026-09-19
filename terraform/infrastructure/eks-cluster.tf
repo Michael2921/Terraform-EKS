@@ -80,11 +80,6 @@ module "eks" {
   }
 
 
-  resource "kubernetes_namespace_v1" "fargate_namespace" {
-    metadata {
-      name = "fargate"
-    }
-  }
 
   resource "aws_vpc_security_group_ingress_rule" "fargate_to_mysql" { # allows fargate pods to access MySQL
   security_group_id            = module.eks.node_security_group_id # node security group

@@ -15,6 +15,13 @@ provider "kubernetes" {
 }
 
 
+resource "kubernetes_namespace_v1" "fargate_namespace" { // needs to not be in the infrastructure folder
+metadata {
+    name = "fargate"
+}
+}
+
+
 
 resource "kubernetes_storage_class_v1" "gp3" {
     depends_on = [module.eks]
