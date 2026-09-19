@@ -50,52 +50,26 @@ pipeline {
         // }
 
 
-        stage('Provision EKS cluster and MYSQL') { // define credentialsId in jenkins using secret text type
-        // update kubeconfig to run kubectl, but first set needed env variables
+        stage('Provision Infrastructure (Networking + EKS)') { 
+
         environment {
-            TF_VAR_cluster_name = "company-cluster"
-            TF_VAR_region = "us-east-1"
+          //  TF_VAR_cluster_name = "company-cluster"
+          //  TF_VAR_region = "us-east-1"
             AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
             AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
 
         }
             steps {
 
-                dir('terraform') {
-                withCredentials ([
-                    string(
-                        credentialsId: 'mysql-root-password',
-                        variable: 'TF_VAR_mysql_root_password'
-                    ), 
-
-                    string(
-
-                        credentialsId : 'mysql-replication-password',
-                        variable: 'TF_VAR_mysql_replication_password'
-                    ),
-
-                    
-                    string(
-                        credentialsId: 'mysql-password',
-                        variable: 'TF_VAR_mysql_user_password'
-                    ),
-
-                    usernamePassword(
-                        credentialsId: 'docker-hub-repo',
-                        usernameVariable: 'TF_VAR_docker_username',
-                        passwordVariable: 'TF_VAR_docker_PAT'
-                    )
-
-
-                ]) {
+                dir('terraform/infrastructure') {
                
-                    echo "Provisioning EKS cluster"
-                 //  sh 'terraform init'
-                  // sh 'terraform plan'
-                  sh 'terraform destroy --auto-approve'
+                    echo "Provisioning Infrastructie"
+                    sh 'terraform init'
+                    sh 'terraform plan'
+                //  sh 'terraform destroy --auto-approve'
             
 
-                }
+                
 
                 }
                 
