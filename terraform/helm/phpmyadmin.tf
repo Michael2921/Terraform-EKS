@@ -7,12 +7,6 @@ resource "helm_release" "phpmyadmin" {
 
 
     values = ["${file("helmvalues-phpmyadmin.yaml")}"]
-    
-
-    depends_on = [
-        kubernetes_storage_class_v1.gp3,
-        kubernetes_secret_v1.mysql_creds
-    ]
 
 
 }

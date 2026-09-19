@@ -1,3 +1,7 @@
+provider "aws" {
+    region = "us-east-1"
+}
+
 provider "helm" {
      kubernetes = {
     host = data.terraform_remote_state.infrastructure.outputs.cluster_endpoint
@@ -7,4 +11,9 @@ provider "helm" {
 }
 
 
+}
+
+
+data "aws_eks_cluster_auth" "cluster" {
+    name = data.terraform_remote_state.infrastructure.outputs.cluster_name
 }
