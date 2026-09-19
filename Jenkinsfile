@@ -79,11 +79,49 @@ pipeline {
 
 
 
-        stage('Deploy PHPMyAdmin') {
+        stage('Provision Kubernetes Resources') {
+            environment {
+          //  TF_VAR_cluster_name = "company-cluster"
+          //  TF_VAR_region = "us-east-1"
+            AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
+            AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
+
+        }
             steps {
-                script {
-                    echo "Deploying PHPMyAdmin"
+                dir('terraform/kubernetes') {
+                      withCredentials ([
+                    string(
+                        credentialsId: 'mysql-root-password',
+                        variable: 'TF_VAR_mysql_root_password'
+                    ), 
+
+                    string(
+
+                        credentialsId : 'mysql-replication-password',
+                        variable: 'TF_VAR_mysql_replication_password'
+                    ),
+
+                    
+                    string(
+                        credentialsId: 'mysql-password',
+                        variable: 'TF_VAR_mysql_user_password'
+                    )
+
+
+                ]) { 
+               
+                    echo "Provisioning Kubernetes resources"
+                    sh 'terraform init'
+                    sh 'terraform plan'
+                  //  sh 'terraform apply --auto-approve'
+
                 }
+            
+
+                
+
+                }
+               
             }
         }
 
