@@ -1,3 +1,13 @@
+terraform {
+  required_version = ">= 0.12"
+  backend "s3" {
+    bucket = "terraform-eks20"
+    key = "terraform/companyapp.tfstate"
+    region = "us-east-1"
+  }
+}
+
+
 variable "docker_username" {
   type = string
 }
