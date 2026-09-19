@@ -159,8 +159,8 @@ pipeline {
                     echo "Deploying Company Application" 
                     sh 'terraform init'
                   //  sh 'terraform state list'
-                    sh 'terraform plan'
-                  //  sh 'terraform apply --auto-approve'
+                   // sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
 
                 }
                 }
