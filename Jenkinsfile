@@ -157,8 +157,8 @@ pipeline {
                 ]) { 
                
                     echo "Deploying Company Application" 
-                  //  sh 'terraform init -migrate-state -force-copy'
-                  //  sh 'terraform state list'
+                    sh 'terraform init -migrate-state -force-copy'
+                    sh 'terraform state list'
                  //   sh 'terraform plan'
                   //  sh 'terraform apply --auto-approve'
 
