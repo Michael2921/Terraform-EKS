@@ -108,7 +108,7 @@ pipeline {
                 ]) { 
                
                     echo "Provisioning Kubernetes resources"
-                    sh 'terraform init'
+                    sh 'terraform init -input=false -reconfigure'
                     sh 'terraform plan'
                   //  sh 'terraform apply --auto-approve'
 
