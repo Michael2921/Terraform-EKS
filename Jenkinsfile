@@ -107,9 +107,9 @@ pipeline {
 
                 ]) { 
                
-                    echo "Provisioning Kubernetes resources"
+                    echo "Provisioning Kubernetes resources" 
+                    sh 'terraform init -migrate-state -force-copy'
                     sh 'terraform state list'
-                   // sh 'terraform init -input=false -reconfigure'
                     sh 'terraform plan'
                   //  sh 'terraform apply --auto-approve'
 
