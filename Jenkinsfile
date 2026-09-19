@@ -131,10 +131,38 @@ pipeline {
         }
             steps {
                 dir ('terraform/helm') {
-                    echo "Provisioning MYSQL and PHPMydmin with Helm"
-                    // sh 'terraform init'
+                    echo "Deploying MYSQL and PHPMydmin with Helm"
+                     sh 'terraform init'
+                     sh 'terraform state list'
                    // sh 'terraform plan'
-                    sh 'terraform apply --auto-approve'
+                 //   sh 'terraform apply --auto-approve'
+                }
+            }
+        }
+
+
+        stage('Deploy Company App') {
+            environment {
+            AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
+            AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
+        }
+            steps {
+                dir ('terraform/companyapp') {
+                    withCredentials ([
+                        usernamePassword(
+                            credentialsId: 'docker-hub-repo'
+                            usernameVariable: 'TF_VAR_docker_username'
+                            passwordVariable: 'TF_VAR_docker_PAT'
+                        )
+                ]) { 
+               
+                    echo "Deploying Company Application" 
+                  //  sh 'terraform init -migrate-state -force-copy'
+                  //  sh 'terraform state list'
+                 //   sh 'terraform plan'
+                  //  sh 'terraform apply --auto-approve'
+
+                }
                 }
             }
         }

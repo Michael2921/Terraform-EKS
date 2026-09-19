@@ -8,7 +8,6 @@ variable "docker_PAT" {
 
 
 resource "kubernetes_secret_v1" "docker-creds" {
-    depends_on = [module.eks]
     metadata {
         name = "docker-creds"
         namespace = "fargate"
@@ -34,7 +33,6 @@ resource "kubernetes_secret_v1" "docker-creds" {
 
 
 resource "kubernetes_manifest" "companyapp_configmap" {
-  depends_on = [module.eks]
   manifest = yamldecode(
     file("companyapp-configmap.yaml")
   )
@@ -42,14 +40,14 @@ resource "kubernetes_manifest" "companyapp_configmap" {
 
 
 resource "kubernetes_manifest" "companyapp_deployment" {
-  depends_on = [module.eks, kubernetes_manifest.companyapp_configmap]
+  depends_on = [kubernetes_manifest.companyapp_configmap]
   manifest = yamldecode(
     file("companyapp-deployment.yaml")
   )
 }
 
 resource "kubernetes_manifest" "companyapp_service" {
-  depends_on = [module.eks, kubernetes_manifest.companyapp_configmap]
+  depends_on = [kubernetes_manifest.companyapp_configmap]
   manifest = yamldecode(
     file("companyapp-service.yaml")
   )
