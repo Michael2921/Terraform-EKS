@@ -110,7 +110,7 @@ pipeline {
                     echo "Provisioning Kubernetes resources" 
                    // sh 'terraform init -migrate-state -force-copy'
                   //  sh 'terraform state list'
-                    sh 'terraform plan'
+                 //   sh 'terraform plan'
                   //  sh 'terraform apply --auto-approve'
 
                 }
@@ -132,8 +132,9 @@ pipeline {
             steps {
                 dir ('terraform/helm') {
                     echo "Provisioning MYSQL and PHPMydmin with Helm"
-                    sh 'terraform init'
-                    sh 'terraform plan'
+                    // sh 'terraform init'
+                   // sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
                 }
             }
         }
