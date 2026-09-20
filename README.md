@@ -1,0 +1,1 @@
+This project uses Terraform modules to provision an EKS cluster with a managed node group and Fargate profile. It deploys MYSQL, phpMyAdmin, and a custom Java application using Terraform and Jenkins in a CI/CD pipeline. It also creates a remote backend to store local Terraform state files.
