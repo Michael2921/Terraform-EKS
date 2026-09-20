@@ -25,29 +25,29 @@ pipeline {
     stages {
 
 
-        // stage('Build App') {
-        //     steps {
-        //         dir('java-app') {
-        //         script {
-        //             echo "Building the app"
-        //             sh 'gradle build'
+        stage('Build App') {
+            steps {
+                dir('java-app') {
+                script {
+                    echo "Building the app"
+                    sh 'gradle build'
 
-        //         }
-        //         }
-        //     }
-        // }
+                }
+                }
+            }
+        }
         
-        // stage('Build Image and push to Repo') {
-        //     steps {
-        //         script {
-        //             echo "Building image and pushing to repo"
-        //             buildDockerImage(env.IMAGE_NAME)
-        //             dockerLogin('docker-hub-repo')
-        //             dockerPush(env.IMAGE_NAME)
+        stage('Build Image and push to Repo') {
+            steps {
+                script {
+                    echo "Building image and pushing to repo"
+                    buildDockerImage(env.IMAGE_NAME)
+                    dockerLogin('docker-hub-repo')
+                    dockerPush(env.IMAGE_NAME)
 
-        //         }
-        //     }
-        // }
+                }
+            }
+        }
 
 
         stage('Provision Infrastructure (Networking + EKS)') { 
@@ -63,9 +63,9 @@ pipeline {
                 dir('terraform/infrastructure') {
                
                     echo "Provisioning Infrastructure"
-                    sh 'terraform init'
-                 //   sh 'terraform plan'
-                 //   sh 'terraform apply --auto-approve'
+                    sh 'terraform init -migrate-state -force-copy'
+                    sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
             
 
                 
@@ -108,10 +108,9 @@ pipeline {
                 ]) { 
                
                     echo "Provisioning Kubernetes resources" 
-                   // sh 'terraform init -migrate-state -force-copy'
-                  //  sh 'terraform state list'
-                 //   sh 'terraform plan'
-                  //  sh 'terraform apply --auto-approve'
+                    sh 'terraform init -migrate-state -force-copy'
+                    sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
 
                 }
             
@@ -132,10 +131,9 @@ pipeline {
             steps {
                 dir ('terraform/helm') {
                     echo "Deploying MYSQL and PHPMydmin with Helm"
-                 //    sh 'terraform init -migrate-state -force-copy'
-                   //  sh 'terraform state list'
-                   // sh 'terraform plan'
-                 //   sh 'terraform apply --auto-approve'
+                    sh 'terraform init -migrate-state -force-copy'
+                    sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
                 }
             }
         }
@@ -158,9 +156,8 @@ pipeline {
                
                     echo "Deploying Company Application" 
                     sh 'terraform init -migrate-state -force-copy'
-                  //  sh 'terraform state list'
-                   // sh 'terraform plan'
-                  //  sh 'terraform apply --auto-approve'
+                    sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
 
                 }
                 }
