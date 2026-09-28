@@ -50,93 +50,93 @@ pipeline {
         }
 
 
-        stage('Provision Infrastructure (Networking + EKS)') { 
+        // stage('Provision Infrastructure (Networking + EKS)') { 
 
-        environment {
+        // environment {
 
-            AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
-            AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
+        //     AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
+        //     AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
 
-        }
-            steps {
+        // }
+        //     steps {
 
-                dir('terraform/infrastructure') {
+        //         dir('terraform/infrastructure') {
                
-                    echo "Provisioning Infrastructure"
-                    sh 'terraform init -migrate-state -force-copy'
-                    sh 'terraform plan'
-                    sh 'terraform apply --auto-approve'
+        //             echo "Provisioning Infrastructure"
+        //             sh 'terraform init -migrate-state -force-copy'
+        //             sh 'terraform plan'
+        //             sh 'terraform apply --auto-approve'
             
 
                 
 
-                }
+        //         }
                 
-            }
-        }
+        //     }
+        // }
 
 
 
 
-        stage('Provision Kubernetes Resources') {
-            environment {
-            AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
-            AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
+        // stage('Provision Kubernetes Resources') {
+        //     environment {
+        //     AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
+        //     AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
 
-        }
-            steps {
-                dir('terraform/kubernetes') {
-                      withCredentials ([
-                    string(
-                        credentialsId: 'mysql-root-password',
-                        variable: 'TF_VAR_mysql_root_password'
-                    ), 
+        // }
+        //     steps {
+        //         dir('terraform/kubernetes') {
+        //               withCredentials ([
+        //             string(
+        //                 credentialsId: 'mysql-root-password',
+        //                 variable: 'TF_VAR_mysql_root_password'
+        //             ), 
 
-                    string(
+        //             string(
 
-                        credentialsId : 'mysql-replication-password',
-                        variable: 'TF_VAR_mysql_replication_password'
-                    ),
+        //                 credentialsId : 'mysql-replication-password',
+        //                 variable: 'TF_VAR_mysql_replication_password'
+        //             ),
 
                     
-                    string(
-                        credentialsId: 'mysql-password',
-                        variable: 'TF_VAR_mysql_user_password'
-                    )
+        //             string(
+        //                 credentialsId: 'mysql-password',
+        //                 variable: 'TF_VAR_mysql_user_password'
+        //             )
 
 
-                ]) { 
+        //         ]) { 
                
-                    echo "Provisioning Kubernetes resources" 
-                    sh 'terraform init -migrate-state -force-copy'
-                    sh 'terraform plan'
-                    sh 'terraform apply --auto-approve'
+        //             echo "Provisioning Kubernetes resources" 
+        //             sh 'terraform init -migrate-state -force-copy'
+        //             sh 'terraform plan'
+        //             sh 'terraform apply --auto-approve'
 
-                }
+        //         }
             
 
                 
 
-                }
+        //         }
                
-            }
-        }
+        //     }
+        // }
 
 
-        stage('Deploy Helm MYSQL and PHPMyAdmin') {
-            environment {
-            AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
-            AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
-        }
-            steps {
-                dir ('terraform/helm') {
-                    echo "Deploying MYSQL and PHPMydmin with Helm"
-                    sh 'terraform init -migrate-state -force-copy'
-                    sh 'terraform plan'
-                    sh 'terraform apply --auto-approve'
-                }
-            }
-        }
+        // stage('Deploy Helm MYSQL and PHPMyAdmin') {
+        //     environment {
+        //     AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
+        //     AWS_SECRET_ACCESS_KEY = credentials ('jenkins_aws_secret_access_key')
+        // }
+        //     steps {
+        //         dir ('terraform/helm') {
+        //             echo "Deploying MYSQL and PHPMydmin with Helm"
+        //             sh 'terraform init -migrate-state -force-copy'
+        //             sh 'terraform plan'
+        //             sh 'terraform apply --auto-approve'
+        //         }
+        //     }
+        // }
 
 
         stage('Deploy Company App') {
@@ -155,9 +155,9 @@ pipeline {
                 ]) { 
                
                     echo "Deploying Company Application" 
-                    sh 'terraform init -migrate-state -force-copy'
-                    sh 'terraform plan'
-                    sh 'terraform apply --auto-approve'
+                 //   sh 'terraform init -migrate-state -force-copy'
+                  //  sh 'terraform plan'
+                    sh 'terraform destroy --auto-approve'
 
                 }
                 }
