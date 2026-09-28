@@ -65,7 +65,7 @@ pipeline {
                     echo "Provisioning Infrastructure"
                   //  sh 'terraform init -migrate-state -force-copy'
                 //    sh 'terraform plan'
-                 //   sh 'terraform apply --auto-approve'
+                    sh 'terraform destroy --auto-approve'
             
 
                 
@@ -110,7 +110,7 @@ pipeline {
                     echo "Provisioning Kubernetes resources" 
                 //    sh 'terraform init -migrate-state -force-copy'
                 //    sh 'terraform plan'
-                    sh 'terraform destroy --auto-approve'
+                //    sh 'terraform destroy --auto-approve'
 
                 }
             
