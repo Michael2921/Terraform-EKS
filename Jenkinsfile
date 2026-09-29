@@ -63,9 +63,9 @@ pipeline {
                 dir('terraform/infrastructure') {
                
                     echo "Provisioning Infrastructure"
-                  //  sh 'terraform init -migrate-state -force-copy'
-                //    sh 'terraform plan'
-                    sh 'terraform destroy --auto-approve'
+                    sh 'terraform init -migrate-state -force-copy'
+                    sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
             
 
                 
@@ -108,9 +108,9 @@ pipeline {
                 ]) { 
                
                     echo "Provisioning Kubernetes resources" 
-                //    sh 'terraform init -migrate-state -force-copy'
-                //    sh 'terraform plan'
-                //    sh 'terraform destroy --auto-approve'
+                    sh 'terraform init -migrate-state -force-copy'
+                    sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
 
                 }
             
@@ -131,9 +131,9 @@ pipeline {
             steps {
                 dir ('terraform/helm') {
                     echo "Deploying MYSQL and PHPMydmin with Helm"
-                 //   sh 'terraform init -migrate-state -force-copy'
-                //    sh 'terraform plan'
-                  //  sh 'terraform destroy --auto-approve'
+                    sh 'terraform init -migrate-state -force-copy'
+                    sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
                 }
             }
         }
@@ -155,9 +155,9 @@ pipeline {
                 ]) { 
                
                     echo "Deploying Company Application" 
-                 //   sh 'terraform init -migrate-state -force-copy'
-                  //  sh 'terraform plan'
-                  //  sh 'terraform destroy --auto-approve'
+                    sh 'terraform init -migrate-state -force-copy'
+                    sh 'terraform plan'
+                    sh 'terraform apply --auto-approve'
 
                 }
                 }
